@@ -3,7 +3,7 @@ import { FaSearch } from "react-icons/fa";
 import Chat from "./Chat";
 import Chats from "./Chats";
 import FriendsOnline from "./FriendsOnline";
-import InputSearch from "./InputSearch";
+import InputEntry from "./InputEntry";
 import UserImage from "./UserImage";
 
 export default function GridLayout({children}) {
@@ -24,8 +24,8 @@ export default function GridLayout({children}) {
             </GridItem>
             {/* conteudo do meio */}
             <GridItem>
-                <VStack mt={4} gap={4} w={'full'}>
-                    <InputSearch placeholder={'Search friends'} leftIcon={<FaSearch color={'#cccccc'} />} />
+                <VStack gap={4} w={'full'} h={'full'}>
+                    <InputEntry placeholder={'Search friends'} leftIcon={<FaSearch color={'#cccccc'} />} />
                     <Chat />
                 </VStack>
             </GridItem>

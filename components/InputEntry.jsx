@@ -1,6 +1,6 @@
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 
-export default function InputSearch({leftIcon, ...props}) {
+export default function InputEntry({leftIcon, ...props}) {
 
     return (
         <InputGroup>
