@@ -16,7 +16,7 @@ export default function GridLayout({children}) {
             h={"100vh"}
             templateColumns={'repeat(3, 1fr)'}
             backgroundColor={'#fff'}
-            overflow={'auto'}
+            overflow={'hidden'}
         >
             {/* parte lateral do site */}
             <GridItem>
@@ -29,7 +29,7 @@ export default function GridLayout({children}) {
             {/* conteudo do meio */}
             <GridItem>
                 <VStack gap={4} w={'full'} h={'full'}>
-                    <InputEntry placeholder={'Digite sua mensagem'} leftIcon={<FaSearch color={'#cccccc'} />} />
+                    <InputEntry placeholder={'Search friends'} leftIcon={<FaSearch color={'#cccccc'} />} />
                     <Chat />
                 </VStack>
             </GridItem>

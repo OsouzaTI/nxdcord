@@ -25,7 +25,7 @@ export default function Chat() {
                 </GridItem>
                 <GridItem>
                     <HStack alignItems={'center'} justifyContent={'center'} h={'full'}>
-                        <InputEntry placeholder={'Search friends'} leftIcon={<FiSend color={'#cccccc'} />} />
+                        <InputEntry placeholder={'Digite sua mensagem'} leftIcon={<FiSend color={'#cccccc'} />} />
                     </HStack>                    
                 </GridItem>                
             </Grid>
