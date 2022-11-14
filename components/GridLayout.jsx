@@ -21,7 +21,7 @@ export default function GridLayout({children}) {
             {/* parte lateral do site */}
             <GridItem>
                 <VStack gap={10}>
-                    <UserImage size={'xl'} iconSize={'30'} name={'Dan Abrahmov'} src={'https://bit.ly/dan-abramov'} />
+                    <UserImage size={'xl'} iconsize={'30'} name={'Dan Abrahmov'} src={'https://bit.ly/dan-abramov'} />
                     <FriendsOnline />
                     <Chats />
                 </VStack>
@@ -45,7 +45,7 @@ export default function GridLayout({children}) {
                                         <Text>{dayMonthYear()}</Text>
                                         <AiOutlineBell size={24} />
                                     </HStack>
-                                    <UserImage size={'xl'} iconSize={'30'} name={'Dan Abrahmov'} src={'https://bit.ly/dan-abramov'} />
+                                    <UserImage size={'xl'} iconsize={'30'} name={'Dan Abrahmov'} src={'https://bit.ly/dan-abramov'} />
                                 </VStack>
                             </GridItem>
 

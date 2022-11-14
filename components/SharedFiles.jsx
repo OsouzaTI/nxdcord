@@ -14,7 +14,7 @@ export default function SharedFiles(props) {
 
     return (
         <VStack {...props}>
-            {sharedFiles.map((file, i)=><FileDescription {...file} />)}
+            {sharedFiles.map((file, i)=><FileDescription key={i} {...file} />)}
         </VStack>
     );
 

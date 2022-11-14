@@ -11,9 +11,9 @@ export default function UserImage({isOnline = false, badgePlacement = 'bottom-en
             </Avatar>
             <Text fontSize={'2xl'}>{props.name}</Text>
             <HStack justifyContent={'space-between'}>
-                <RiGithubFill size={props.iconSize}/>
-                <RiInstagramFill size={props.iconSize}/>
-                <RiTwitterFill size={props.iconSize}/>
+                <RiGithubFill size={props.iconsize}/>
+                <RiInstagramFill size={props.iconsize}/>
+                <RiTwitterFill size={props.iconsize}/>
             </HStack>
         </VStack>
     )

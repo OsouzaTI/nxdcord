@@ -11,7 +11,7 @@ export default function Chats() {
             <Text fontWeight={'bold'}>Chats</Text>
             <InputEntry placeholder={'Search chats'} leftIcon={<FaSearch color={'#cccccc'} />} />
             <VStack gap={4}>
-                {Array(5).fill().map((_, i)=><ChatPreview />)}
+                {Array(5).fill().map((_, i)=><ChatPreview key={i} />)}
             </VStack>
         </VStack>
     )

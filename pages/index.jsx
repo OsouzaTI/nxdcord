@@ -1,11 +1,32 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import GridLayout from '../components/GridLayout'
 import styles from '../styles/Home.module.css'
-import Login from '../login'
+import GridLayout from '../components/GridLayout'
+import { setCookie, getCookie } from 'cookies-next';
 
 export default function Home() {
   return (
     <GridLayout></GridLayout>    
   )
+}
+
+
+
+export async function getServerSideProps(context) {
+
+  const token = context.query.token ?? '';
+  
+  // validacao
+  const response = await fetch('http://localhost:3001/validation', {
+    method:'POST',
+    headers: {
+      'authorization': `token ${token}`
+    }
+  });
+  
+  if(response.status == 200) {
+    setCookie('token', token, {sameSite: true});    
+  }
+
+  return {
+    props: {token}, // will be passed to the page component as props
+  }
 }

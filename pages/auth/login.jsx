@@ -1,4 +1,4 @@
-import { Button, FormControl, Grid, HStack, Input, SimpleGrid, Text, VStack } from "@chakra-ui/react";
+import { Button, FormControl, getToken, Grid, HStack, Input, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { useRef } from "react";
 
 export default function Login() {   
@@ -20,7 +20,12 @@ export default function Login() {
         const token = await response.json();
         
         // redireciona para a home
-        window.location.href = '/';
+        window.location.href = `/?token=${token['token']}`;
+    }
+
+    function verificar() {
+        const token = getCookie('token');
+        alert(token);
     }
 
     return (
@@ -32,9 +37,10 @@ export default function Login() {
                     <Text fontWeight={'bold'}>Password</Text>
                     <Input type={'password'} shadow={'md'} variant={'outline'} ref={passRef} />
                     <Button onClick={loginJWT}>Entrar</Button>
+                    <Button onClick={verificar}>Verificar</Button>
                 </VStack>
             </FormControl>
         </HStack>
     );
 
-}
+}  
