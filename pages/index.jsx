@@ -24,9 +24,11 @@ export async function getServerSideProps(context) {
   
   if(response.status == 200) {
     setCookie('token', token, {sameSite: true});    
+  } else {
+    setCookie('token', false, {sameSite: true}); 
   }
 
   return {
-    props: {token}, // will be passed to the page component as props
+    props: {}, // will be passed to the page component as props
   }
 }
