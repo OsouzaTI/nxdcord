@@ -19,8 +19,6 @@ export default function Login() {
 
         const token = await response.json();
         
-        //
-        
         // redireciona para a home
         window.location.href = '/';
     }
@@ -33,7 +31,7 @@ export default function Login() {
                     <Input shadow={'md'} variant={'outline'} ref={userRef} />
                     <Text fontWeight={'bold'}>Password</Text>
                     <Input type={'password'} shadow={'md'} variant={'outline'} ref={passRef} />
-                    <Button onClick={loginJWT}>Sexo</Button>
+                    <Button onClick={loginJWT}>Entrar</Button>
                 </VStack>
             </FormControl>
         </HStack>
