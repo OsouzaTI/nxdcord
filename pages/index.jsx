@@ -1,8 +1,25 @@
 import styles from '../styles/Home.module.css'
 import GridLayout from '../components/GridLayout'
 import { setCookie, getCookie } from 'cookies-next';
+import { useContext } from 'react';
+import JWTContext from '../contexts/jwtContext';
+import { useEffect } from 'react';
+import UsersContext from '../contexts/usersContext';
+import { getAllFriends } from '../helpers/database/friends';
 
-export default function Home() {
+export default function Home({userPayload, friends, token}) {
+
+  const {setUser} = useContext(JWTContext);
+  const {setFriends} = useContext(UsersContext);
+
+  useEffect(()=>{
+    // salvando o payload do usuario no contexto
+    setUser(userPayload);
+    // salvando lista de amigos
+    setFriends(friends);
+  }, [])
+  
+
   return (
     <GridLayout></GridLayout>    
   )
@@ -22,13 +39,28 @@ export async function getServerSideProps(context) {
     }
   });
   
+  let userPayload = {};  
+  let friends = {};
+
   if(response.status == 200) {
+
     setCookie('token', token, {sameSite: true});    
+    // payload do login JWT
+    userPayload = await response.json();
+    // todos os amigos
+    friends = await getAllFriends(userPayload.id);
+
   } else {
-    setCookie('token', false, {sameSite: true}); 
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/auth/login',
+      },
+      props: {}
+    }
   }
 
   return {
-    props: {}, // will be passed to the page component as props
+    props: {userPayload, friends, token}, // will be passed to the page component as props
   }
 }

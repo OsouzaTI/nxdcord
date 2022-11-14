@@ -3,7 +3,7 @@ import FileDescription from "./FileDescription";
 
 export default function SharedFiles(props) {
 
-    const sharedFiles = Array(5).fill().map((_, i) => {
+    const sharedFiles = Array(2).fill().map((_, i) => {
         return {
             name: `file${i}`,
             url: 'https://preview.redd.it/fj7zd82uh7z01.jpg?auto=webp&s=75081151739e771a8c2a4076b1bc0ff904608800',

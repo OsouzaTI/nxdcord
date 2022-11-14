@@ -1,15 +1,27 @@
-import { Avatar, AvatarBadge, Heading, HStack, Text, VStack } from "@chakra-ui/react";
+import { Avatar, AvatarBadge, Button, Heading, HStack, Text, VStack } from "@chakra-ui/react";
+import { setCookie, getCookie } from 'cookies-next';
+import Link from 'next/link'
+import { useContext } from "react";
+import ChatContext from "../contexts/chatContext";
+import UsersContext from "../contexts/usersContext";
 
-import { RiGithubFill, RiInstagramFill, RiTwitterFill } from 'react-icons/ri'
+export default function SimpleUserImage({isOnline = false, badgeSize = '6', badgePlacement = 'bottom-end', id, ...props}) {
+    
+    const {getFriendById} = useContext(UsersContext);
+    const {setChatController, getMessagesById} = useContext(ChatContext);
 
-export default function SimpleUserImage({isOnline = false, badgeSize = '6', badgePlacement = 'bottom-end', ...props}) {
-   
-    return (
-        <VStack>
+    async function changeChatController() {
+        const friend = getFriendById(id);
+        const messages = await getMessagesById(id);
+        setChatController({...friend, messages: messages});
+    }
+
+    return (        
+        <VStack onClick={changeChatController} cursor={'pointer'}>
             <Avatar {...props}>
                 <AvatarBadge placement={badgePlacement} border={'2px'} bg={isOnline ? 'green.500' : 'red.500'} boxSize={badgeSize} />
             </Avatar>
-        </VStack>
+        </VStack>        
     )
 
 }
