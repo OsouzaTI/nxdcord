@@ -1,11 +1,9 @@
 import { ChakraProvider } from '@chakra-ui/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ChatContext from '../contexts/chatContext';
 import JWTContext from '../contexts/jwtContext'
 import UsersContext from '../contexts/usersContext';
 import '../styles/globals.css'
-
-import socket from '../helpers/database/messages';
 
 function MyApp({ Component, pageProps }) {
 
@@ -15,7 +13,7 @@ function MyApp({ Component, pageProps }) {
   const [friends, setFriends] = useState([{}]);
   // controle global do chat
   const [chatController, setChatController] = useState({
-    userId: 0,
+    id: 0,
     username: 'global',
     photo: null,
     messages: []
@@ -40,7 +38,7 @@ function MyApp({ Component, pageProps }) {
     <ChakraProvider>
       <JWTContext.Provider value={{user, setUser}}>
         <UsersContext.Provider value={{friends, setFriends, getFriendById}}>
-          <ChatContext.Provider value={{...chatController, setChatController, getMessagesById}}>
+          <ChatContext.Provider value={{chatController, setChatController, getMessagesById}}>
             <Component {...pageProps} />
           </ChatContext.Provider>
         </UsersContext.Provider>

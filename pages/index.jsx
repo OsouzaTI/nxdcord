@@ -1,7 +1,7 @@
 import styles from '../styles/Home.module.css'
 import GridLayout from '../components/GridLayout'
 import { setCookie, getCookie } from 'cookies-next';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import JWTContext from '../contexts/jwtContext';
 import { useEffect } from 'react';
 import UsersContext from '../contexts/usersContext';
@@ -11,7 +11,7 @@ export default function Home({userPayload, friends, token}) {
 
   const {setUser} = useContext(JWTContext);
   const {setFriends} = useContext(UsersContext);
-
+  
   useEffect(()=>{
     // salvando o payload do usuario no contexto
     setUser(userPayload);
@@ -19,7 +19,6 @@ export default function Home({userPayload, friends, token}) {
     setFriends(friends);
   }, [])
   
-
   return (
     <GridLayout></GridLayout>    
   )

@@ -3,19 +3,62 @@ import ChatMessage from "./ChatMessage";
 import InputEntry from "./InputEntry";
 import { FiSend } from "react-icons/fi"
 import ChatContext from "../contexts/chatContext";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import JWTContext from "../contexts/jwtContext";
+import md5 from 'object-hash';
+import io from 'socket.io-client';
 
-import { socketConnection } from "../helpers/database/messages";
+let socket = null;
 
 export default function Chat() {
 
     const [message, setMessage] = useState('');
     const {user} = useContext(JWTContext);
+    const {chatController, getMessagesById, setChatController} = useContext(ChatContext);
+    const [hash, setHash] = useState('');
+
+    useEffect(()=>{
+        // inicializando socket
+        socketInitializer();
+    }, [chatController.username])
+
+    async function socketInitializer() {
+        console.log('conectando ao socket');
+        socket = io('http://localhost:3002');            
+        
+        if(chatController.username != 'global') {
+
+            // criando a sala entre os dois usuarios
+            let usernames = [user.username, chatController.username].sort();
+            const hash = md5(usernames);
+            setHash(hash);
+
+            socket.emit('CONNECT_ROOM', hash);
+
+            socket.on('REFRESH_MESSAGES', async () => {
+                console.log('novas mensagens estão disponiveis...');
+                const messages = await getMessagesById(chatController.id);
+                setChatController({...chatController, messages: messages});
+            });
+
+        }
+
+    }
+
+    function sendMessage(destinationId) {
+        socket.emit('SEND_MESSAGE', {
+            hash: hash,
+            usuario_id: user.id, 
+            destino_id: destinationId,
+            mensagem: message
+        });
+        setMessage('');
+    }
 
     return (
         <ChatContext.Consumer>
-            {({id, username, messages}) => {
+            {({chatController}) => {
+                const {id, username, photo, messages} = chatController;
                 return (
                     <VStack w={'full'} h={'full'} alignItems={'start'}>
                         <Text>Chat with</Text>
@@ -30,10 +73,7 @@ export default function Chat() {
                             </GridItem>
                             <GridItem>
                                 <HStack alignItems={'center'} justifyContent={'center'} h={'full'}>
-                                    <InputEntry onClick={()=>{
-                                        const sock = socketConnection();
-                                        sock.emit('teste', 'ola mundo');
-                                    }}
+                                    <InputEntry onClick={()=>sendMessage(id)}
                                         onChange={(({target})=>setMessage(target.value))}
                                         value={message} placeholder={'Digite sua mensagem'}
                                         leftIcon={<FiSend color={'#cccccc'} />} />

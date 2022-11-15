@@ -41,8 +41,9 @@ export default function GridLayout({children}) {
             </GridItem>
             {/* terceira coluna */}
             <ChatContext.Consumer>
-                {({userId, username, photo}) => {
-                    if(userId != 0) {
+                {({chatController}) => {
+                    const {id, username, photo} = chatController;
+                    if(id != 0) {
                         return (
                             <GridItem>
                                 <VStack h={'full'} justifyContent={'center'}>
